@@ -1,0 +1,1185 @@
+{% include "header.html" %}
+
+<link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+
+{% block body %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col md-12">
+
+
+
+            <h2>Metropolitan Museum Data<button type="button" class="btn btn-success  pull-right" data-toggle="modal" data-target="#myModal">Add Data</button></h2>
+
+
+
+
+    {%with messages = get_flashed_messages()%}
+
+    {%if messages%}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+
+     <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+
+         <span aria-hidden="true">&times;</span>
+
+     </button>
+        {{message}}
+
+
+    </div>
+
+
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+
+
+
+
+            <table class="table table-striped">
+
+
+                <tr>
+              <th>objectID</th>
+              <th>isHighlight</th>
+              <th>accessionNumber</th>
+              <th>accessionYear</th>
+              <th>isPublicDomain</th>
+              <th>primaryImage</th>
+              <th>primaryImageSmall</th>
+              <th>department</th>
+              <th>objectName</th>
+              <th>title</th>
+              <th>culture</th>
+              <th>artistRole</th>
+              <th>artistPrefix</th>
+              <th>artistDisplayName</th>
+              <th>artistDisplayBio</th>
+              <th>artistAlphaSort</th>
+              <th>artistNationality</th>
+              <th>artistBeginDate</th>
+              <th>artistEndDate</th>
+              <th>artistWikidata_URL</th>
+              <th>artistULAN_URL</th>
+              <th>objectDate</th>
+              <th>objectBeginDate</th>
+              <th>objectEndDate</th>
+              <th>medium</th>
+              <th>dimensions</th>
+              <th>creditLine</th>
+              <th>geographyType</th>
+              <th>city</th>
+              <th>state</th>
+              <th>county</th>
+              <th>country</th>
+              <th>metadataDate</th>
+              <th>repository</th>
+              <th>objectURL</th>
+              <th>objectWikidata_URL</th>
+              <th>isTimelineWork</th>
+              <th>GalleryNumber</th>
+              <th>constituents_constituentID</th>
+              <th>constituents_role</th>
+              <th>constituents_name</th>
+              <th>constituents_constituentULAN_URL</th>
+              <th>constituents_constituentWikidata_URL</th>
+              <th>measurements_elementName</th>
+              <th>measurements_elementDescription</th>
+              <th>elementMeasurements_Diameter</th>
+              <th>tags_term</th>
+              <th>tags_AAT_URL</th>
+              <th>tags_Wikidata_URL</th>
+              <th>elementMeasurements_Depth</th>
+              <th>elementMeasurements_Height</th>
+              <th>measurements_elementMeasurements_Width</th>
+              <th>measurements_elementMeasurements_Weight</th>
+
+
+          </tr>
+
+
+
+
+                {% for row in search_data %}
+                <tr>
+                    <td>{{row.0}}</td>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>{{row.5}}</td>
+                    <td>{{row.6}}</td>
+                    <td>{{row.7}}</td>
+                    <td>{{row.8}}</td>
+                    <td>{{row.9}}</td>
+                    <td>{{row.10}}</td>
+                    <td>{{row.11}}</td>
+                    <td>{{row.12}}</td>
+                    <td>{{row.13}}</td>
+                    <td>{{row.14}}</td>
+                    <td>{{row.15}}</td>
+                    <td>{{row.16}}</td>
+                    <td>{{row.17}}</td>
+                    <td>{{row.18}}</td>
+                    <td>{{row.19}}</td>
+                    <td>{{row.20}}</td>
+                    <td>{{row.21}}</td>
+                    <td>{{row.22}}</td>
+                    <td>{{row.23}}</td>
+                    <td>{{row.24}}</td>
+                    <td>{{row.25}}</td>
+                    <td>{{row.26}}</td>
+                    <td>{{row.27}}</td>
+                    <td>{{row.28}}</td>
+                    <td>{{row.29}}</td>
+                    <td>{{row.30}}</td>
+                    <td>{{row.31}}</td>
+                    <td>{{row.32}}</td>
+                    <td>{{row.33}}</td>
+                    <td>{{row.34}}</td>
+                    <td>{{row.35}}</td>
+                    <td>{{row.36}}</td>
+                    <td>{{row.37}}</td>
+                    <td>{{row.38}}</td>
+                    <td>{{row.39}}</td>
+                    <td>{{row.40}}</td>
+                    <td>{{row.41}}</td>
+                    <td>{{row.42}}</td>
+                    <td>{{row.43}}</td>
+                    <td>{{row.44}}</td>
+                    <td>{{row.45}}</td>
+                    <td>{{row.46}}</td>
+                    <td>{{row.47}}</td>
+                    <td>{{row.48}}</td>
+                    <td>{{row.49}}</td>
+                    <td>{{row.50}}</td>
+                    <td>{{row.51}}</td>
+                    <td>{{row.52}}</td>
+
+                    <td>
+
+
+               <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+                <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+
+                    </td>
+
+                </tr>
+
+                <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+
+
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+            <h4 class="modal-title">Update Information</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="{{ url_for('update') }}" method="POST">
+
+               <div class="form-group">
+
+
+                  <label>objectID:</label>
+                  <input type="INT" class="form-control" name="objectID" required="1">
+
+
+               </div>
+
+                <div class="form-group">
+
+
+                  <label>isHighlight:</label>
+                  <input type="text" class="form-control" name="isHighlight" required="1">
+
+
+                </div>
+
+                <div class="form-group">
+
+
+                  <label>accessionNumber:</label>
+                  <input type="text" class="form-control" name="accessionNumber" required="1">
+
+
+                </div>
+
+                <div class="form-group">
+
+
+                  <label>accessionYear:</label>
+                  <input type="number" class="form-control" name="accessionYear" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>isPublicDomain :</label>
+                  <input type="text" class="form-control" name="isPublicDomain" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>primaryImage:</label>
+                  <input type="text" class="form-control" name="primaryImage" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>primaryImageSmall:</label>
+                  <input type="text" class="form-control" name="primaryImageSmall" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>department:</label>
+                  <input type="text" class="form-control" name="department" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectName:</label>
+                  <input type="text" class="form-control" name="objectName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>title:</label>
+                  <input type="text" class="form-control" name="title" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>culture:</label>
+                  <input type="text" class="form-control" name="culture" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistRole:</label>
+                  <input type="text" class="form-control" name="artistRole" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistPrefix:</label>
+                  <input type="text" class="form-control" name="artistPrefix" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistDisplayName:</label>
+                  <input type="text" class="form-control" name="artistDisplayName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistDisplayBio:</label>
+                  <input type="text" class="form-control" name="artistDisplayBio" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistAlphaSort:</label>
+                  <input type="text" class="form-control" name="artistAlphaSort" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistNationality :</label>
+                  <input type="text" class="form-control" name="artistNationality" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistBeginDate:</label>
+                  <input type="text" class="form-control" name="artistBeginDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistEndDate:</label>
+                  <input type="text" class="form-control" name="artistEndDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistWikidata_URL:</label>
+                  <input type="text" class="form-control" name="artistWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistULAN_URL:</label>
+                  <input type="text" class="form-control" name="artistULAN_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectDate:</label>
+                  <input type="text" class="form-control" name="objectDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectBeginDate:</label>
+                  <input type="number" class="form-control" name="objectBeginDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectEndDate:</label>
+                  <input type="text" class="form-control" name="objectEndDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>medium:</label>
+                  <input type="text" class="form-control" name="medium" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>dimensions:</label>
+                  <input type="text" class="form-control" name="dimensions" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>creditLine:</label>
+                  <input type="text" class="form-control" name="creditLine" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>geographyType:</label>
+                  <input type="text" class="form-control" name="geographyType" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>city:</label>
+                  <input type="text" class="form-control" name="city" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>state:</label>
+                  <input type="text" class="form-control" name="state" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>county:</label>
+                  <input type="text" class="form-control" name="county" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>country:</label>
+                  <input type="text" class="form-control" name="country" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>metadataDate:</label>
+                  <input type="text" class="form-control" name="metadataDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>repository:</label>
+                  <input type="text" class="form-control" name="repository" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectURL:</label>
+                  <input type="text" class="form-control" name="objectURL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectWikidata_URL:</label>
+                  <input type="text" class="form-control" name="objectWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>isTimelineWork:</label>
+                  <input type="text" class="form-control" name="isTimelineWork" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>GalleryNumber:</label>
+                  <input type="text" class="form-control" name="GalleryNumber" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentID:</label>
+                  <input type="text" class="form-control" name="constituents_constituentID" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_role:</label>
+                  <input type="text" class="form-control" name="constituents_role" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_name:</label>
+                  <input type="text" class="form-control" name="constituents_name" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentULAN_URL:</label>
+                  <input type="text" class="form-control" name="constituents_constituentULAN_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentWikidata_URL:</label>
+                  <input type="text" class="form-control" name="constituents_constituentWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementName:</label>
+                  <input type="text" class="form-control" name="measurements_elementName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementDescription:</label>
+                  <input type="text" class="form-control" name="measurements_elementDescription" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Diameter:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Diameter" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_term:</label>
+                  <input type="text" class="form-control" name="tags_term" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_AAT_URL:</label>
+                  <input type="text" class="form-control" name="tags_AAT_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_Wikidata_URL:</label>
+                  <input type="text" class="form-control" name="tags_Wikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Depth:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Depth" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Height:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Height" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementMeasurements_Width:</label>
+                  <input type="text" class="form-control" name="measurements_elementMeasurements_Width" required="1">
+
+
+                </div>
+
+
+                <div class="form-group">
+
+
+                  <label>measurements_elementMeasurements_Weight:</label>
+                  <input type="text" class="form-control" name="measurements_elementMeasurements_Weight" required="1">
+
+
+               </div>
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Update</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+                {% endfor  %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+<!-- Modal -->
+
+
+<div id="myModal" class="modal fade" role="dialog">
+
+
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+            <h4 class="modal-title">Please Insert Data</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="{{ url_for('insert') }}" method="POST">
+
+
+                <div class="form-group">
+
+
+                  <label>objectID:</label>
+                  <input type="INT" class="form-control" name="objectID" required="1">
+
+
+               </div>
+
+                <div class="form-group">
+
+
+                  <label>isHighlight:</label>
+                  <input type="text" class="form-control" name="isHighlight" required="1">
+
+
+                </div>
+
+                <div class="form-group">
+
+
+                  <label>accessionNumber:</label>
+                  <input type="text" class="form-control" name="accessionNumber" required="1">
+
+
+                </div>
+
+                <div class="form-group">
+
+
+                  <label>accessionYear:</label>
+                  <input type="number" class="form-control" name="accessionYear" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>isPublicDomain :</label>
+                  <input type="text" class="form-control" name="isPublicDomain" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>primaryImage:</label>
+                  <input type="text" class="form-control" name="primaryImage" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>primaryImageSmall:</label>
+                  <input type="text" class="form-control" name="primaryImageSmall" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>department:</label>
+                  <input type="text" class="form-control" name="department" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectName:</label>
+                  <input type="text" class="form-control" name="objectName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>title:</label>
+                  <input type="text" class="form-control" name="title" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>culture:</label>
+                  <input type="text" class="form-control" name="culture" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistRole:</label>
+                  <input type="text" class="form-control" name="artistRole" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistPrefix:</label>
+                  <input type="text" class="form-control" name="artistPrefix" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistDisplayName:</label>
+                  <input type="text" class="form-control" name="artistDisplayName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistDisplayBio:</label>
+                  <input type="text" class="form-control" name="artistDisplayBio" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistAlphaSort:</label>
+                  <input type="text" class="form-control" name="artistAlphaSort" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistNationality :</label>
+                  <input type="text" class="form-control" name="artistNationality" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistBeginDate:</label>
+                  <input type="text" class="form-control" name="artistBeginDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistEndDate:</label>
+                  <input type="text" class="form-control" name="artistEndDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistWikidata_URL:</label>
+                  <input type="text" class="form-control" name="artistWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>artistULAN_URL:</label>
+                  <input type="text" class="form-control" name="artistULAN_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectDate:</label>
+                  <input type="text" class="form-control" name="objectDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectBeginDate:</label>
+                  <input type="number" class="form-control" name="objectBeginDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectEndDate:</label>
+                  <input type="text" class="form-control" name="objectEndDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>medium:</label>
+                  <input type="text" class="form-control" name="medium" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>dimensions:</label>
+                  <input type="text" class="form-control" name="dimensions" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>creditLine:</label>
+                  <input type="text" class="form-control" name="creditLine" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>geographyType:</label>
+                  <input type="text" class="form-control" name="geographyType" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>city:</label>
+                  <input type="text" class="form-control" name="city" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>state:</label>
+                  <input type="text" class="form-control" name="state" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>county:</label>
+                  <input type="text" class="form-control" name="county" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>country:</label>
+                  <input type="text" class="form-control" name="country" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>metadataDate:</label>
+                  <input type="text" class="form-control" name="metadataDate" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>repository:</label>
+                  <input type="text" class="form-control" name="repository" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectURL:</label>
+                  <input type="text" class="form-control" name="objectURL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>objectWikidata_URL:</label>
+                  <input type="text" class="form-control" name="objectWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>isTimelineWork:</label>
+                  <input type="text" class="form-control" name="isTimelineWork" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>GalleryNumber:</label>
+                  <input type="text" class="form-control" name="GalleryNumber" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentID:</label>
+                  <input type="text" class="form-control" name="constituents_constituentID" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_role:</label>
+                  <input type="text" class="form-control" name="constituents_role" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_name:</label>
+                  <input type="text" class="form-control" name="constituents_name" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentULAN_URL:</label>
+                  <input type="text" class="form-control" name="constituents_constituentULAN_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>constituents_constituentWikidata_URL:</label>
+                  <input type="text" class="form-control" name="constituents_constituentWikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementName:</label>
+                  <input type="text" class="form-control" name="measurements_elementName" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementDescription:</label>
+                  <input type="text" class="form-control" name="measurements_elementDescription" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Diameter:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Diameter" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_term:</label>
+                  <input type="text" class="form-control" name="tags_term" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_AAT_URL:</label>
+                  <input type="text" class="form-control" name="tags_AAT_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>tags_Wikidata_URL:</label>
+                  <input type="text" class="form-control" name="tags_Wikidata_URL" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Depth:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Depth" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>elementMeasurements_Height:</label>
+                  <input type="text" class="form-control" name="elementMeasurements_Height" required="1">
+
+
+                </div>
+                <div class="form-group">
+
+
+                  <label>measurements_elementMeasurements_Width:</label>
+                  <input type="text" class="form-control" name="measurements_elementMeasurements_Width" required="1">
+
+
+                </div>
+
+
+                <div class="form-group">
+
+
+                  <label>measurements_elementMeasurements_Weight:</label>
+                  <input type="text" class="form-control" name="measurements_elementMeasurements_Weight" required="1">
+
+
+               </div>
+
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Insert Data</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
